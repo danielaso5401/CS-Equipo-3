@@ -1,5 +1,5 @@
 # CS-Equipo-3
-Cesar /
+Cesar */
 Claudia Veliz/
 Daniel Huaita/
 Rafael Corzo/
