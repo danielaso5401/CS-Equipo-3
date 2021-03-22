@@ -40,8 +40,22 @@ cuadro3.place(x=100,y=100,width=150,height=150)
 label3=Label(raiz, text="Detalle: ")
 label3.place(x=40,y=100)
 def codbot():
-    
-    if correo.get()=="" or tema.get()=="" and detalle.get()=="":
+    sql="select email from formulario"
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    for i in range(len(results)):
+        if correo.get()==results[i][0]:
+            completado=Tk()
+            completado.title("Error")
+            completado.resizable(0,0)
+            completado.iconbitmap("l1.ico")
+            completado.geometry("300x100")
+            fin=Label(completado, text=" el correo ya existe",font=("Cambria",13))
+            fin.place(x=50,y=30)
+            break
+            completado.mainloop()
+            
+    if correo.get()=="" or tema.get()=="" or detalle.get()=="":
         completado=Tk()
         completado.title("Error")
         completado.resizable(0,0)
