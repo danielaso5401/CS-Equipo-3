@@ -2,10 +2,10 @@ from tkinter import *
 import pymysql
 
 conection = pymysql.Connect(
-  host="localhost",
+  host="127.0.0.1",
   port=3306,
   user="root",
-  password="12345678",
+  password="123456789",
   db="cs3"
 )
 cursor=conection.cursor()
@@ -40,9 +40,35 @@ cuadro3.place(x=100,y=100,width=150,height=150)
 label3=Label(raiz, text="Detalle: ")
 label3.place(x=40,y=100)
 def codbot():
+
+    a1=correo.get()
+    a2=tema.get()
+    a3=detalle.get()
+    
+    
+    correof=correo.get()
+    val=0
+    for i in range(len(correof)):
+        if correof[i] == '@':
+            val=1
+            
+
+            
+    if val == 0 :
+        error=Tk()
+        error.title("ERROR")
+        error.resizable(0,0)
+        error.iconbitmap("l1.ico")
+        error.geometry("300x100")
+        finerror=Label(error, text="agrege un correo valido",font=("Cambria",13))
+        finerror.place(x=50,y=30)
+
+        exit()
+        error.mainloop()
     sql="select email from formulario"
     cursor.execute(sql)
     results = cursor.fetchall()
+        
     for i in range(len(results)):
         if correo.get()==results[i][0]:
             completado=Tk()
@@ -52,10 +78,11 @@ def codbot():
             completado.geometry("300x100")
             fin=Label(completado, text=" el correo ya existe",font=("Cambria",13))
             fin.place(x=50,y=30)
+            exit()
             break
             completado.mainloop()
-            
-    if correo.get()=="" or tema.get()=="" or detalle.get()=="":
+                
+    if correo.get()=="" or tema.get()=="" or detalle.get()=="" :
         completado=Tk()
         completado.title("Error")
         completado.resizable(0,0)
@@ -64,16 +91,12 @@ def codbot():
         fin=Label(completado, text=" los campos estan vacios",font=("Cambria",13))
         fin.place(x=50,y=30)
         completado.mainloop()
-    else:
-        a1=correo.get()
-        a2=tema.get()
-        a3=detalle.get()
         
+    else:
         sql = "INSERT INTO formulario(email, tema, detalle) VALUES('"+a1+"','"+a2+"','"+a3+"')"
         cursor.execute(sql)
         conection.commit()
-        
-        
+        correof=correo.get()
         completado=Tk()
         completado.title("COMPLETADO")
         completado.resizable(0,0)
@@ -82,7 +105,8 @@ def codbot():
         fin=Label(completado, text="se guardo correctamente \n la informacion ",font=("Cambria",13))
         fin.place(x=50,y=30)
         completado.mainloop()
-    
+
+
 def codbot2():
     correo.set("")
     tema.set("")
